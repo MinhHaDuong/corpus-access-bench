@@ -42,22 +42,46 @@ nothing measurable while costing 2–4× the tokens and time of a cold draw.
 
 ## The bit that's actionable for local setups
 
-**B′ (one file per entry) beat A (hand-built index) by +4.1 and B (PDFs+grep) by
-+6.1** on the two discriminating strata. I had spent real effort building that
-index, with page addresses and 1613 cross-references. A directory listing beat
-it.
+Two separate results here, and I had them tangled at first.
 
-Two reasons I think it wins:
+**The hand-built index never paid, in any model.** Against plain PDFs + grep,
+within-round: −0.3 / +1.3 / −1.4 / +2.2 across Sonnet 5, Opus 5, Fable 5, Qwen
+27B. Everything at or barely over the 2-point floor. 196 entries, page
+addresses, 1613 cross-references — zero marks bought anywhere. My
+pre-registered rule for whether to go map a second reference work measured
++0.08. Project cancelled.
 
-1. The filename *is* the retrieval index, and it's in the model's context for
-free the moment it runs `ls`. No embedding, no chunking policy, no top-k.
-2. **Absence becomes a fact.** "Is there an entry on X?" gets an exact yes/no.
-Grep can only fail to find something, which isn't the same claim. All four
-absences the local model asserted were correct, verified against the directory.
+**The one-file-per-entry directory is the only layer that moved anything, and
+the sign flips.** Against the same PDF arm:
 
-If you're building local RAG over a bounded corpus, the cheap win may be
-upstream of your retriever: cut the source at its natural unit and name the
-files well.
+| B′ − B | Sonnet 5 | Opus 5 | Fable 5 | **Qwen 27B** |
+|---|---|---|---|---|
+| | **−9.0** | +0.1 | 0.0 | **+7.3** |
+
+For the 27B it's the best access there is (+5.2 over the index too). For Sonnet
+it cost nine points.
+
+Why I think it cuts both ways: **a per-entry directory makes the corpus's
+coverage legible.** That helps a model whose memory is worse than the corpus and
+hurts one whose memory is better. Sonnet went quiet where the corpus was silent
+— 61 marks at exactly 0.50 (the rubric's abstention value) vs 20 for the PDF
+arm, judges naming abstention in 22% of lines vs 1%, and **zero fabrications
+either way**. It didn't get worse, it stopped answering. Splitting at that line,
+though, only half the 9-point gap is silence: where it did answer it scored 0.80
+vs 0.90, so "it's just posture" was too kind.
+
+The 27B is the mirror image: marks at 0.50 fall **100 cold → 45 on PDFs → 25 on
+the directory** while the score climbs **24.7 → 37.6 → 44.9**. Same legibility,
+opposite effect.
+
+Also: **absence becomes a fact.** "Is there an entry on X?" gets an exact
+yes/no from `ls`. Grep can only fail to find something, which isn't the same
+claim. All four absences the 27B asserted were correct, verified with a positive
+control.
+
+If you're building local RAG over a bounded corpus, the cheap win is probably
+upstream of your retriever — cut the source at its natural unit and name the
+files well. But check which way it cuts for your model before you commit.
 
 ## Hardware / conditions
 

@@ -49,7 +49,13 @@ time columns are not the same quantity: the local seconds are inference on
 hardware I can see, the frontier seconds include queueing and agent-harness
 overhead on machines I cannot. What they honestly measure is what I waited for. For the local machine the price is hours. The corpus arms took 6 100 to 7 200 seconds against 850 to 1 250 for the frontier arms — five to eight times longer for the same sixty questions. Two hours of a workstation already paid for (I have spare electricity in the afternoon from my rooftop PV panels), against a subscription. That is the trade, stated plainly.
 
-The result I did not expect. The hand-built index lost to a directory of files. Cutting the corpus into one file per entry, so the filename is the index, beat my carefully constructed table of contents by 4.1 points for the local model and beat text search over the PDFs by 6.1. What pays is not cataloguing a corpus. It is cutting it at the right granularity, so the structure is the index and an absence is a fact about ls.
+The result I did not expect. My hand-built index never paid, anywhere. Against plain PDFs with text search, within each round, it scored −0.3, +1.3, −1.4 and +2.2 across the four models — every one of them at or barely over the 2-point floor. Real work, 196 entries with page addresses and 1613 cross-references, and it bought no marks in any column. The pre-registered rule that would have sent me on to map a second reference work measured +0.08, and I cancelled that project.
+
+Cutting the corpus into one file per entry is a different story, and not a simple one. Against the same PDF arm it scores −9.0 for Sonnet 5, +0.1 for Opus 5, 0.0 for Fable 5, and +7.3 for the local 27B. It is the only access layer in the whole study that moved anything by double digits, and the sign depends on the model.
+
+The reading that fits both signs: a per-entry directory makes the corpus's coverage legible, and legibility helps a model whose memory is worse than the corpus while hurting one whose memory is better. Sonnet went quiet where the corpus was silent — three times the abstentions of the PDF arm, and not one fabrication. The 27B did the opposite: its abstentions fell from 100 marks cold to 45 on the PDFs to 25 on the directory while its score climbed 24.7 to 37.6 to 44.9.
+
+So what pays is not cataloguing a corpus. It is cutting it at the right granularity — and knowing which way that will cut for the model you are feeding.
 
 So what did I actually decide?
 
@@ -61,7 +67,13 @@ I am not going to optimise corpus access for the strong models. Not because they
 
 And here is what I cannot tell you, though I would like to. Whether Opus 5 and Fable 5 genuinely know as much as a scholarly reference work. Marks near 58/60 with 1.9-point spreads fit "they know it" and "my questions are too easy" equally well, and my own evidence leans toward the second: I had predicted a cold model would score at most 10/20 on the obscure stratum, and it scored 14.7. An instrument that saturates does not prove the examinee knows the material. It proves the instrument has a ceiling. Finding out needs harder questions.
 
-I will keep the corpus wired for the strong models anyway — for provenance citations rather than for the score. Scientific writings need exact bibliographies. The corpus-armed copies gave exact page references that the judges verified, and flagged which of their answers rested on a page they had opened rather than on memory. A model that knows the material but cannot cite to the page leaves the whole verification to me, and in scholarly work that is most of the work.
+I will keep the corpus wired for the strong models anyway — for provenance rather than for the score. This one rests on a working practice rather than on a number, so let me state it plainly.
+
+A researcher keeps a fulltext copy of every work they cite. Not a bibliographic entry, not a DOI, not a search result: the document itself, on disk, openable. The rule exists because a bibliographic database is reliable for whether a reference exists and unreliable for what it says. Building this study's own answer key met both failures — a fraction quoted in a well-known paper came back wrong from two independent OCRs, and a review circulates under the wrong journal title. And a page number is read on the page it prints on, never interpolated from a text extraction, because extraction order is not layout order.
+
+That practice is what an agent inherits, or does not. An agent working inside a corpus held as fulltext can cite sur pièce — from the piece — and its citation is checkable by whoever reads next. An agent that merely knows the material can only recall it, and every locator it gives me has to be re-verified by hand before I can publish. In scholarly writing that verification is most of the labour. So the choice is not between a good answer and a slightly better one. It is between a citation and a claim.
+
+The measured behaviour is the evidence that the wiring delivers it: the corpus-armed copies gave exact page references the judges opened and checked, flagged unprompted which of their answers rested on a page they had opened rather than on memory, and — for the directory arm — established four times, correctly, that no entry existed at all. None of that appears in a mark, which is why it survives a verdict of "access buys nothing".
 
 What I am not claiming. One draw per arm, so no confidence interval — an order-of-magnitude result, twenty points against two, not a ranking. The local model ran at its maximum reasoning setting, but a minority of its blocks were repaired with thinking disabled, so its column mixes two regimes. One domain, one language, one rubric — and that rubric rewards honest abstention over confident error, a value judgement about research work that would reorder the arms if reversed.
 

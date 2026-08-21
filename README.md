@@ -201,10 +201,34 @@ reasoning is in [RESULTS.md § 7](RESULTS.md).
    failed at 14.7. A saturated instrument demonstrates its own ceiling, not the
    examinee's knowledge. Settling this needs harder questions.
 4. **The corpus stays wired for the strong models anyway — for provenance, not
-   for the mark.** A mark measures whether an answer is right, never whether a
-   reader can check it. The corpus-armed copies cited exact pages that judges
-   verified, and flagged which answers rested on an opened page rather than on
-   memory.
+   for the mark.** This one rests on a working practice rather than on a number,
+   so it needs stating plainly.
+
+   A researcher keeps a fulltext copy of every work they cite. Not a
+   bibliographic entry, not a DOI, not a search result: the document itself, on
+   disk, openable. The rule exists because a bibliographic database is reliable
+   for whether a reference *exists* and unreliable for what it *says* — this
+   study met both failures while building its own answer key, where a fraction
+   quoted in a well-known paper came back wrong from two independent OCRs, and a
+   review circulates under the wrong journal title. A page number is read on the
+   page it prints on, never interpolated from a text extraction.
+
+   That practice is what an agent inherits, or does not. An agent working inside
+   a corpus held as fulltext can cite *sur pièce* — from the piece — and its
+   citation is checkable by whoever reads next. An agent that merely knows the
+   material can only recall it, and every locator it produces has to be
+   re-verified by hand before the work can be published. In scholarly writing
+   that verification is most of the labour, so the choice is not between a good
+   answer and a slightly better one. It is between a citation and a claim.
+
+   The measured behaviours are the evidence that the wiring delivers it: the
+   corpus-armed copies gave exact folios the judges opened and checked, flagged
+   unprompted which of their answers rested on a page they had opened rather
+   than on memory, and — for the directory arm — established four times that no
+   entry existed at all, which is a statement no search can make.
+
+   None of that appears in a mark. It is why decision 2 is about optimisation
+   effort and not about disconnecting the corpus.
 
 ## Status
 

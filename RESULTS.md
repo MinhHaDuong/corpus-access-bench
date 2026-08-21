@@ -352,11 +352,37 @@ examinee's knowledge; it demonstrates its own ceiling. Settling this needs harde
 questions, which campaign 4 did not know how to write.
 
 **4. Keep the corpus wired for the strong models anyway — for provenance, not
-for the mark.** A mark measures whether an answer is right. It does not measure
-whether a reader can check it. The corpus-armed copies cited exact folios that
-the judges verified, and flagged unprompted which of their answers rested on an
-opened page rather than on memory. A model that knows the material but cannot
-route you to the page leaves the whole verification to you.
+for the mark.** This decision rests on a working practice rather than on a
+number.
+
+A researcher keeps a fulltext copy of every work they cite: the document itself,
+on disk, openable — not a bibliographic entry, not a DOI, not a search result.
+The rule exists because a bibliographic database is reliable for whether a
+reference *exists* and unreliable for what it *says*. Building this study's own
+answer key met both failure modes: a fraction quoted in a well-known paper came
+back wrong from two independent OCRs, and a review circulates under the wrong
+journal title. Relatedly, a cited page number is read on the page it prints on,
+never interpolated from a text extraction, because extraction order is not
+layout order.
+
+That practice is what an agent inherits or does not. Working inside a corpus held
+as fulltext, an agent can cite *sur pièce* — from the piece — and its citation is
+checkable by whoever reads next. An agent that merely knows the material can only
+recall it, and every locator it produces must be re-verified by hand before the
+work is publishable. In scholarly writing that verification is most of the
+labour, so the choice is not between a good answer and a slightly better one but
+between a citation and a claim.
+
+The measured behaviours are the evidence that the wiring delivers it. The
+corpus-armed copies cited exact folios that the judges opened and verified. They
+flagged unprompted which of their answers rested on an opened page rather than
+on memory — a discipline of provenance that no instruction asked for. And the
+directory arm established four times that no entry existed at all, correctly,
+which is a statement no search can make.
+
+None of this appears in a mark, which is why it survives a verdict of "access
+buys nothing" and why decision 2 concerns optimisation effort rather than
+disconnecting the corpus.
 
 **And the one result that is not about anyone's equipment:** the shape of a
 corpus beats the catalogue of a corpus. A directory of one file per entry beat a
