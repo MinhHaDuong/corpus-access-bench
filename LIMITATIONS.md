@@ -49,6 +49,25 @@ share no level name, so no setting makes "high" and "xhigh" the same condition.
 A **token budget** held constant across candidates is the better-posed
 comparison, and this campaign did not attempt it.
 
+## The saturated blocks, and what re-running them cost
+
+Three of the local model's thirty blocks exhausted the 24 000-token ceiling in
+reasoning and emitted nothing; they were re-run with thinking disabled. Ten
+questions of sixty in arm B, ten in arm B′.
+
+Measured per block (RESULTS.md § 4bis), the repaired blocks were not depressed —
+B′'s is the best block of its arm, B's matches the rest of its arm exactly — and
+the headline comparison holds at +11.92/40 when the affected block is dropped,
+against a pre-registered threshold of +2. What the repair did cost is narrower:
+on five questions arm B answered from memory with no source consulted, and on
+those five it performs like the cold arm. That subtracts from arm B rather than
+adding to it.
+
+The residual objection this cannot answer: block assignment was not random, so
+"the blocks that saturated" is not a random sample of questions, and a
+ten-question block on one draw is a noisy unit. The exclusion test is the
+defence, not the per-block comparison.
+
 ## The 27B's advantage is probably understated
 
 For two of six blocks the 27B's directory arm reported consulting no entry at

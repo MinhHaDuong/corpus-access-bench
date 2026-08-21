@@ -59,9 +59,17 @@ template: `enable_thinking: false` (llama.cpp pre-closes the `<think>` block, so
 the model cannot think) and `--reasoning-budget N`. There is no `high` because
 the top level is named `xhigh`.
 
-What remains a genuine inconsistency: the blocks repaired with `/no_think` ran
-with thinking structurally disabled — the bottom of the scale — while every
-other block ran at the top. [LIMITATIONS.md](LIMITATIONS.md) sizes it.
+What remains a genuine inconsistency: three blocks exhausted the 24 000-token
+ceiling reasoning and emitted nothing, and were re-run with thinking disabled —
+the bottom of the scale, while every other block sat at the top. Twenty
+questions of the local model's three hundred. Measured per block, those repairs
+cost nothing: the repaired block is the *best* block of arm B′, and arm B's
+matches the rest of its arm. The one real scar is five questions where arm B
+answered from memory with no source consulted, and there it performs like the
+cold arm — which subtracts from the corpus arms rather than flattering them.
+Dropping the affected block from the decisive comparison leaves **+11.9/40**
+against a pre-registered threshold of +2. Worked through in
+[RESULTS.md § 4bis](RESULTS.md).
 
 Costs ran two to four times a cold draw in tokens and in wall-clock time, on
 every arm and every model — 6 100–7 200 s locally against 850–1 250 s for the

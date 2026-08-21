@@ -57,6 +57,10 @@ def main() -> None:
     ap.add_argument("--salted-questions", type=int, nargs="*", default=[],
                     help="question numbers carrying the seeded defects of this round")
     ap.add_argument("--n-questions", type=int, default=60)
+    ap.add_argument("--block-size", type=int, default=0,
+                    help="also report the mean mark per block of N questions — the "
+                         "runner's unit, so a block re-run after an incident is "
+                         "visible as a block rather than hidden in the total")
     ap.add_argument("--label", default="round")
     args = ap.parse_args()
 
@@ -101,6 +105,23 @@ def main() -> None:
             for q in args.salted_questions:
                 vals = [d.get(salted_c, {}).get(q) for d in judges.values()]
                 print(f"  Q{q}: " + " ".join("?" if v is None else f"{v:.2f}" for v in vals))
+
+    if args.block_size:
+        edges = list(range(1, args.n_questions + 1, args.block_size))
+        print("\n" + f"{'Copy':<10}"
+              + "".join(f"{lo}-{min(lo + args.block_size - 1, args.n_questions)}".rjust(10)
+                        for lo in edges))
+        for a in arms:
+            c = next(k for k, v in key.items() if v == a)
+            cells = []
+            for lo in edges:
+                hi = min(lo + args.block_size - 1, args.n_questions)
+                per_q = [st.mean([d[c][q] for d in judges.values()
+                                  if c in d and q in d[c]])
+                         for q in range(lo, hi + 1)
+                         if all(c in d and q in d[c] for d in judges.values())]
+                cells.append(st.mean(per_q) if per_q else float("nan"))
+            print(f"{a:<10}" + "".join(f"{v:10.2f}" for v in cells))
 
     if len(judges) > 1:
         diffs = []

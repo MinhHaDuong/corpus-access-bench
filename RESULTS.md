@@ -172,6 +172,58 @@ extracts (25 calls). The index's apparent economy was never a property of the
 index. It was a property of its opponent's clumsiness — a reason to read *how* a
 baseline worked before believing a comparison against it.
 
+## 4bis. The runs that saturated the thinking budget
+
+Three of the local model's thirty blocks came back empty: the model spent its
+entire 24 000-token ceiling reasoning and emitted no answer. Since nothing in
+the effort control enforces a limit (§ 0), only a hard `--reasoning-budget`
+would have prevented this, and none was set. The blocks were re-run with
+`/no_think`, which disables thinking outright — so those questions sit at the
+bottom of the effort scale while every other block sat at the top.
+
+Ten questions of sixty in arm B, ten of sixty in arm B′, none elsewhere. Whether
+that damaged them is measurable, and the runner's block is the natural unit:
+`aggregate.py --block-size 10`.
+
+| Mean mark per question | 1-10 | 11-20 | 21-30 | 31-40 | 41-50 | 51-60 | whole |
+|---|---|---|---|---|---|---|---|
+| C — cold | 0.48 | 0.44 | 0.35 | 0.41 | 0.31 | 0.48 | 0.41 |
+| B — PDFs | **0.62** † | 0.58 | 0.54 | 0.64 | 0.69 | 0.69 | 0.63 |
+| B′ — directory | 0.51 | 0.74 | **0.86** † | 0.82 | 0.88 | 0.68 | 0.75 |
+| A — index | 0.61 | 0.58 | 0.84 | 0.66 | 0.57 | 0.71 | 0.66 |
+
+† re-run after saturation, with thinking disabled.
+
+**The repaired blocks were not depressed.** B′'s repaired block is the best block
+of its arm (0.86 against an arm mean of 0.75). B's repaired block scores 0.62
+against 0.63 for the rest of that arm — the same. Disabling thinking cost these
+answers nothing measurable, which is itself a small result about this model on
+this task.
+
+Do not over-read it in the other direction either. One block is ten questions on
+a single draw, and blocks differ by more than this across every arm; the cold
+arm's own blocks range 0.31 to 0.48. The claim here is bounded: no evidence of
+damage, not evidence that thinking is useless.
+
+**One repair did leave a scar, and it is the honest one to report.** Arm B's
+block was re-run in halves, and on questions 1-5 the model consulted no source
+and answered from memory. Those five questions score 0.58 against 0.53 for the
+*cold* arm on the same five — a margin of +0.05, where the rest of arm B beats
+cold by +0.23. On those five questions arm B was a cold arm, which is what it
+had become. The effect is to **understate** what PDF access is worth, not to
+inflate it.
+
+**The decisive comparison survives excluding the affected block.** Dropping B′'s
+re-run block from periphery+adjacency leaves 33 questions:
+
+| Periphery + adjacency | n | B′ | C | Δ | scaled to /40 |
+|---|---|---|---|---|---|
+| all questions | 40 | 29.58 | 15.83 | +13.75 | +13.75 |
+| excluding the re-run block 21-30 | 33 | 23.42 | 13.58 | +9.83 | **+11.92** |
+
+The pre-registered threshold was +2. The finding does not depend on the repaired
+block.
+
 ## 5. Jury calibration
 
 | Round | Union of detections | Median judge | Verdict | Inter-judge spread |
