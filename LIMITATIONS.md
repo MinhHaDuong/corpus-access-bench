@@ -112,6 +112,39 @@ pages named from memory. Coverage and cost for those arms are not comparable to
 a full search, and are flagged in the campaign cost files. Arm D is the weakest
 column of the study.
 
+## No semantic retrieval was tested
+
+Every access layer here is lexical, and in every one of them the candidate model
+chooses what it reads: `grep` over text extracts plus `pdftotext` on a named page
+(arm B), the same with a hand-built map (arm A), a directory listing and a file
+opened by name (arm B′). No embedding index was built, no vector store was
+queried, and at no point did a chunk-and-rank retriever select a passage on the
+candidate's behalf.
+
+**So "retrieval", in the write-ups, means agentic lexical access.** Where
+`posts/` calls retrieval a small-model lever, the claim covers the layers
+measured here and stops there. Embedding RAG, which is what most readers mean by
+the word, is untested in either direction: nothing in these results argues that
+it would behave like `grep`, and nothing argues that it would not.
+
+**One structural difference deserves naming, as a conjecture and not a result.**
+A top-k retriever returns k passages for every query, including queries about
+material the corpus does not cover. The directory arm's four correct claims that
+no entry existed (RESULTS.md § 2) have no obvious analogue in that regime, and
+that behaviour is what decision 4 rests on. Whether a semantic layer recovers it,
+loses it, or replaces it with false claims of absence is the kind of question
+this study was built to settle and did not.
+
+The cost tables inherit the same scope. Two to four times a cold draw prices an
+agentic tool loop paid per query; an embedding index is paid once at build time
+and amortised over the run. Neither figure transfers to the other.
+
+A packaged RAG system — paperqa and its kind — sits a further step away, because
+such a system supplies its own model for evidence summarisation and answer
+drafting. Measuring one would characterise the product, not the access layer, and
+its column would not be comparable with those here, where the candidate is the
+only model that reads the corpus.
+
 ## One domain, one language, one exam
 
 History of economic thought, in French, 150 words per answer, graded by a rubric
