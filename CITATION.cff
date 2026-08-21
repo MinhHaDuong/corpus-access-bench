@@ -10,6 +10,9 @@ authors:
     orcid: https://orcid.org/0000-0001-9988-2100
     affiliation: CNRS, CIRED
 repository-code: https://github.com/MinhHaDuong/corpus-access-bench
+doi: 10.5281/zenodo.22044030
+version: 1.0.0
+date-released: 2026-08-21
 license: CC-BY-4.0
 keywords:
   - large language models

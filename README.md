@@ -240,6 +240,20 @@ Next: if granularity is the lever, how far does it go? Structured re-extraction
 with headings and links, resolved identifiers, generated indexes and access
 instructions inside the corpus directory.
 
+## Citing this
+
+Archived on Zenodo. Cite the **concept DOI**, which always resolves to the
+latest version:
+
+> Ha-Duong, M. (2026). *corpus-access-bench: open-book versus closed-book
+> performance of language models across a capability range* (v1.0.0) [Data set].
+> Zenodo. https://doi.org/10.5281/zenodo.22044030
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22044030.svg)](https://doi.org/10.5281/zenodo.22044030)
+
+`CITATION.cff` carries the same metadata, so GitHub's "Cite this repository"
+and the deposit cannot drift apart.
+
 ## Licence
 
 Text and data CC BY 4.0; code under `harness/` and `tests/` MIT. The corpus
