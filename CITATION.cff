@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+title: >-
+  corpus-access-bench: open-book versus closed-book performance of
+  language models across a capability range
+message: If you use this benchmark or its protocol, please cite it.
+type: dataset
+authors:
+  - family-names: Ha-Duong
+    given-names: Minh
+    orcid: https://orcid.org/0000-0001-9988-2100
+    affiliation: CNRS, CIRED
+repository-code: https://github.com/MinhHaDuong/corpus-access-bench
+license: CC-BY-4.0
+keywords:
+  - large language models
+  - retrieval
+  - evaluation methodology
+  - blind grading
+  - pre-registration
+  - local inference
+  - history of economic thought
+abstract: >-
+  Sixty doctoral-level questions in the history of economic thought, sat by four
+  language models under five ways of reaching the same specialist corpus: cold
+  with no tools, the open web, the corpus as PDFs with text search, a hand-built
+  index of it, and the corpus cut into one file per entry. Every copy graded
+  blind by three judges from a different model family, against decision rules
+  frozen before each run and a salted copy carrying sealed defects that
+  calibrates the panel. Three results. Corpus access moves a local 27B model by
+  20.3 marks out of 60 and the strongest frontier model by 1.7, against an
+  instrument that resolves about 2. The fully equipped 27B still scores 44.9
+  where a frontier model with no tools at all scores 56.0. And the hand-built
+  index never beat plain text search in any model, while the file-per-entry
+  directory was the only access layer to move anything by double digits, in
+  opposite directions depending on the model. The forty discriminating questions
+  are sealed and recorded by hash; the twenty-question control stratum is
+  published whole, with every arm's answers and every judge's per-question line.
