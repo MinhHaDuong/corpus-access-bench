@@ -109,26 +109,81 @@ verified by `ls`, with a positive control confirming the probe could see a
 present entry. A directory answers "is there an entry on X?" for free and
 exactly; `grep` over concatenated text cannot.
 
-## 3. What the index bought, and what it did not
+## 3. The index, the directory, and the sign flip
 
-The index was the original hypothesis, and it lost. Across every model it either
-tied the plain corpus or trailed it, and the pre-registered rule that would have
-triggered mapping a second reference work — A ≥ B + 2 on P+A for the mid-tier
-model — measured **+0.1**. That work was cancelled.
+Two claims of very different strength live here, and an earlier version of this
+document ran them together. Both comparisons below are **within a round**;
+cross-round ones are not licensed (§ 0).
 
-Two capabilities survive the verdict, neither of them visible in a mark:
+### 3.1 The index never paid — four models, four times
 
-- **Provenance.** The index-armed copies cited exact folios, which the judges
-  verified, and flagged unprompted which of their answers rested on an opened
-  page rather than on memory.
-- **Detection of absence.** An index establishes that no entry exists on a
-  figure. A grep can only fail to find one. Roughly a third of the periphery
-  figures in the questionnaire have no entry — their matter sits in thematic
-  chapters, which only grep reaches. The index routes to titles; the content
-  under the titles escapes it.
+| A (index) − B (PDFs + `grep`) | Sonnet 5 | Opus 5 | Fable 5 | Qwen 27B |
+|---|---|---|---|---|
+| | −0.3 | +1.3 | −1.4 | +2.2 |
 
-The B′ result then subsumes the second capability at lower cost: a directory
-gives exact absence with no extraction work at all.
+Every result sits at or barely over the 2-point floor. A hand-built map of 196
+entries with folios and 1613 cross-references bought no marks against plain text
+search, in any model. The pre-registered rule that would have triggered mapping a
+second reference work — A ≥ B + 2 on periphery+adjacency for the mid-tier model —
+measured **+0.08**, and that work was cancelled.
+
+Two capabilities survive the verdict, neither visible in a mark: **provenance**
+(exact folios, verified by the judges, with unprompted flagging of which answers
+rested on an opened page) and **detection of absence**. The second is subsumed by
+the directory at lower cost.
+
+### 3.2 The directory is the only layer that moved anything, and the sign flips
+
+| B′ (file per entry) − B (PDFs + `grep`) | Sonnet 5 | Opus 5 | Fable 5 | Qwen 27B |
+|---|---|---|---|---|
+| | **−9.0** | +0.1 | 0.0 | **+7.3** |
+
+Against the index, where the comparison is within-round: **+5.2** for the 27B,
++1.4 for Fable (a tie). No other access layer in this study produced a
+double-digit swing in either direction.
+
+So "the index lost to `ls`" is true for exactly one model. The defensible claim
+is the compound one: cataloguing a corpus bought nothing anywhere, while cutting
+it at the right granularity changed a great deal — in whichever direction the
+model's own memory dictated.
+
+### 3.3 What happened to Sonnet, measured rather than assumed
+
+The eval3 note attributed the −9.0 to posture: a clean directory makes the
+corpus's silence legible, inducing abstention where the PDF arm had blended
+corpus and memory. The abstention is real and large. Within that round, on the
+same questions and the same judges:
+
+| Sonnet 5, eval3 | marks of exactly 0.50 | judge names an abstention | fabrications |
+|---|---|---|---|
+| B′ directory | 61 | 22 % | 0 |
+| B PDFs, re-graded | 20 | 1 % | 0 |
+
+Three times the abstention, and no fabrication either way — the directory arm did
+not get things wrong, it stopped answering.
+
+**But posture explains only half the gap.** Splitting the 60 questions at the
+directory arm's own abstention line:
+
+| | n | B′ | B on the same questions | points lost |
+|---|---|---|---|---|
+| B′ abstained (≤ 0.55) | 17 | 0.48 | 0.76 | 4.67 |
+| B′ answered (> 0.55) | 43 | 0.80 | 0.90 | 4.33 |
+
+Where the directory arm *did* answer, it was still worse — 0.80 against 0.90.
+Roughly half the deficit is silence and half is weaker answers, so "it is only
+posture" was too generous a reading of its own note, and is corrected here.
+
+The mirror case supports the mechanism from the other side. For the 27B, marks of
+exactly 0.50 fall from **100 cold to 45 on the PDFs to 25 on the directory**
+while the score rises 24.7 → 37.6 → 44.9: the same legibility that silenced
+Sonnet gave the 27B something to say. Its four claims of "no entry exists on X"
+were all correct, verified by `ls`, with a positive control.
+
+The reading consistent with both signs: a per-entry directory makes the corpus's
+coverage legible, and legibility helps a model whose memory is worse than the
+corpus and hurts one whose memory is better. One draw per arm, so this is a
+reading, not a demonstration.
 
 ## 4. Costs
 

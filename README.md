@@ -19,17 +19,56 @@ run.
 
 Marks out of 60, each the mean of three judges. **The instrument resolves about
 2 points** — the same copy re-graded across three rounds scored 56.0, 57.8, 55.3
-— so the 1.9 and the 1.7 are zero and the 20.3 is the result. A 27B model on a
-desk-side machine gains more from corpus access than the entire distance
-separating it from a frontier model in the cold row. Fable returns 58.5 cold,
-58.5 on the PDFs, and 58.5 on the file directory.
+— so read any gap under 2 as a tie. Three results survive that rule.
 
-**Second finding: the hand-built index lost to `ls`.** One file per entry,
-filename as index, beat a map of 196 entries and 1613 cross-references by 4.1
-points and beat text search over the PDFs by 6.1. What pays is not cataloguing a
-corpus but cutting it at the right granularity — and a directory answers "is
-there an entry on X at all?" exactly and for free, which no search can do. All
-four absences the local model asserted were correct.
+### 1. The stronger the model, the less corpus access matters
+
+Best minus worst access: 20.3 for the local 27B, 4.5, 1.9, 1.7 for the others.
+Fable returns 58.5 cold, 58.5 on the PDFs and 58.5 on the file directory. Read
+the 1.9 and the 1.7 as zero; the 20.3 is ten times the floor. Corpus plumbing is
+a small-model lever, and it costs two to four times a cold draw in tokens and
+time whether or not it buys anything.
+
+### 2. The local 27B is not ready to replace Claude Opus 5 for this task
+
+Fully equipped it scores 44.9. Opus 5 **with no tools at all** scores 56.0. The
+corpus closes about half the gap and leaves eleven points, five times the floor,
+and it costs 6 100–7 200 s against 905–1 250 s for the same sixty questions.
+Corpus access does not turn a 27B into a frontier model on this task; it turns it
+into a usefully better 27B.
+
+### 3. The hand-built index never paid — and the directory is the only layer that moved anything
+
+The index was the original hypothesis. Against plain PDFs with `grep`, within
+each round:
+
+| A (index) − B (PDFs + grep) | Sonnet 5 | Opus 5 | Fable 5 | Qwen 27B |
+|---|---|---|---|---|
+| | −0.3 | +1.3 | −1.4 | +2.2 |
+
+Four models, four results at or barely over the floor. Real construction work —
+196 entries, folios, 1613 cross-references — bought no marks anywhere. The
+pre-registered rule that would have triggered mapping a second reference work
+measured **+0.08**, and that work was cancelled.
+
+The file-per-entry directory is a different matter, and **not simply better**:
+
+| B′ (one file per entry) − B (PDFs + grep) | Sonnet 5 | Opus 5 | Fable 5 | Qwen 27B |
+|---|---|---|---|---|
+| | **−9.0** | +0.1 | 0.0 | **+7.3** |
+
+It is the only access layer in the study that produced a large effect, and its
+sign flips by model. For the 27B it is the best access there is, beating the
+index by 5.2 and the PDFs by 7.3, and its four claims of "no entry exists on X"
+were all correct — a question a directory answers exactly and free, and search
+cannot pose. For Sonnet it cost nine points.
+
+An earlier version of this page said the index "lost to `ls`". That
+overgeneralises from one column: the directory beat the index measurably for the
+27B alone. What holds across all four models is the weaker and more useful
+claim — cataloguing a corpus bought nothing, while cutting it at the right
+granularity changed a great deal, in whichever direction the model's own memory
+dictated. [RESULTS.md § 3](RESULTS.md) takes the sign flip apart.
 
 ## Conditions
 
