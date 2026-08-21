@@ -1,0 +1,24 @@
+# --- The instrument never enters git ---------------------------------------
+# 40 of the 60 questions, the answer key, the seal files and the blinding keys
+# stay out of any published tree. A benchmark dies the day its questions enter
+# a training corpus, and the quantity this one measures — what a model knows
+# without the corpus — is precisely the quantity contamination destroys.
+# Deny by default; two files are allowed back.
+instrument/*
+!instrument/README.md
+!instrument/MANIFEST.sha256
+
+# --- Campaign raw material --------------------------------------------------
+# Candidate copies, blinded copies, judge dossiers, keys, salted copies.
+# Each copy answers all 60 questions, so publishing the copies publishes the
+# sealed questions. The control stratum is extracted into public/ instead.
+campaigns/*/raw/
+
+# --- Corpus and its derivatives ---------------------------------------------
+# Not ours to redistribute, and regenerable. See PROTOCOL.md § Corpus.
+corpus/
+*.pdf
+
+__pycache__/
+.venv/
+*.pyc

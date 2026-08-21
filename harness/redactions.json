@@ -1,0 +1,32 @@
+{
+  "_comment": [
+    "Naming policy for every file this repository publishes.",
+    "The two reference works are described by their role, never named: what is",
+    "measured is a mode of access to a corpus, not a particular book, and the",
+    "study makes no claim about the form in which either work is held.",
+    "Applied mechanically by extract_public_split.py and enforced by",
+    "tests/test_naming_policy.py, which is checked against a known positive.",
+    "Patterns deliberately omit the trailing word boundary: a citation key",
+    "such as 'FaccarelloKurz2016' has no boundary before the digits, and that",
+    "is exactly how the first pass leaked the name."
+  ],
+  "forbidden": ["handbook", "palgrave", "faccarello", "kurz", "elgar", "durlauf", "blume"],
+  "patterns": [
+    ["(?i)\\bhandbook on the history of economic analysis\\b", "the reference work"],
+    ["(?i)\\bfaccarello\\s*(?:&|et|and|-)?\\s*kurz\\w*", "the reference work's editors"],
+    ["(?i)\\bdurlauf\\s*(?:&|et|and|-)?\\s*blume\\w*", "the independent work's editors"],
+    ["(?i)\\bnew palgrave\\w*", "the independent reference work"],
+    ["(?i)\\bthe\\s+handbook\\w*", "the reference work"],
+    ["(?i)\\bhandbook\\w*", "reference work"],
+    ["(?i)\\bpalgrave\\w*", "independent reference work"],
+    ["(?i)\\bfaccarello\\w*", "the reference work's editors"],
+    ["(?i)\\bkurz\\w*", "the reference work's editors"],
+    ["(?i)\\bdurlauf\\w*", "the independent work's editors"],
+    ["(?i)\\bblume\\w*", "the independent work's editors"],
+    ["(?i)\\bedward elgar\\w*", "the publisher"],
+    ["(?i)\\belgar\\w*", "the publisher"],
+    ["\\(\\s*(?:I{1,3})\\s*[:,]\\s*\\d+(?:\\s*[-–]\\s*\\d+)?\\s*\\)", "(entry, folio withheld)"],
+    ["\\b(?:I{1,3})\\s*:\\s*\\d+(?:\\s*[-–]\\s*\\d+)?", "(entry, folio withheld)"],
+    ["(?i)\\bvol(?:ume)?s?\\.?\\s+(?:I{1,3}\\b|[123]\\b)", "a volume"]
+  ]
+}

@@ -1,0 +1,10 @@
+> Redacted under the naming policy (PROTOCOL.md): the two reference
+> works are described by role, never named. The unredacted original is
+> sealed with the instrument and recorded in `instrument/MANIFEST.sha256`.
+
+Validation des présupposés (2026-08-20) : 37/40 OK, 0 mal posée, 3 trop
+canoniques remplacées avant tout tirage — P9 Thünen → Launhardt 1885,
+P14 épuisement du produit → boîtes vides (Clapham 1922), P18 Slutsky 1915
+retiré, seul 1927 conservé. Le valideur (sonnet, web + independent reference work, sans
+reference work) n'a trouvé aucune date, attribution ou controverse inventée ;
+la strate A tient entièrement.
