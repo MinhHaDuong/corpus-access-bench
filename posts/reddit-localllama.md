@@ -94,10 +94,18 @@ Predictions were frozen before each run and **two were falsified**, including
 ## Caveats I'd want if I were reading this
 
 - **One draw per arm.** No confidence interval. Order-of-magnitude result only.
-- **Effort isn't held constant** — it can't be. The local model has no effort
-  knob and some blocks burned the whole 24k budget on reasoning with no output;
-  the fix was a `/no_think` retry, so a minority of blocks ran in a different
-  mode. Some of the cold-arm deficit is an inference-budget artefact.
+- **Effort isn't held constant, and that one's on me.** I first wrote that the
+  local model had no effort knob. It does: the template takes
+  `reasoning_effort` of `none` / `low` / `medium` (raises on `high`),
+  `chat_template_kwargs: {"enable_thinking": false}` kills thinking outright,
+  and llama-server has `--reasoning-effort` / `--reasoning-budget`. I set none
+  of them, so the local arms ran at template default against frontier arms at
+  `high`. Some blocks then burned the whole 24k on reasoning with no output and
+  I patched it with a `/no_think` retry — the crude version of a flag that was
+  sitting right there. `--reasoning-budget` would have capped it properly.
+  Some of the cold-arm deficit is an inference-budget artefact. Note the local
+  ceiling is `medium`, so the labels can never match; a redo should equalise a
+  **token budget** instead.
 - **Q4_K_M**, not a full-precision run.
 - The local model's B′ advantage is likely **understated** — on 2 of 6 blocks it
   reported consulting no file and answered from memory.

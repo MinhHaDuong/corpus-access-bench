@@ -14,18 +14,36 @@ assumed: **differences below about 2 points are not differences.** Applied
 honestly, this dissolves most of the within-model rankings. It leaves the
 between-model gradient standing, because that gap is ten times the floor.
 
-## Effort is a confound, and it is not small
+## Effort is a confound, it is not small, and it was avoidable
 
-The frontier arms and judges ran at reasoning effort *high*. The local model has
-no equivalent control; its reasoning budget came from the runner. Arm C spent
-roughly 18 k of 26 k generated tokens on reasoning, and on some blocks the model
-consumed the entire 24 k budget thinking and emitted nothing — repaired by a
-retry with thinking suppressed, so a minority of 27B blocks ran in a different
-mode from the rest.
+The frontier arms and judges ran at reasoning effort *high*. The local arms ran
+at whatever their chat template does by default.
 
-Some unknown share of the 27B's cold-arm deficit is therefore an inference-budget
-artefact. A serious follow-up holds the token budget constant across candidates
-instead of holding the effort *label* constant.
+An earlier version of this file said the local model had no equivalent control.
+That was wrong, and checking took ten minutes. The template accepts a
+`reasoning_effort` of `none`, `low` or `medium` — measured on a trivial prompt:
+2, 22 and 29 completion tokens — and `chat_template_kwargs:
+{"enable_thinking": false}` drops a 92-token answer to 6 with no reasoning at
+all. `llama-server` exposes `--reasoning`, `--reasoning-effort` and
+`--reasoning-budget` besides. The campaign set none of them: the service unit
+carries no reasoning flag, and the runners send `messages`, `max_tokens` and
+`cache_prompt` and nothing else.
+
+Two things follow. Arm C spent roughly 18 k of 26 k generated tokens on
+reasoning, and some blocks consumed the entire 24 k ceiling thinking without
+emitting an answer — repaired by putting `/no_think` in the prompt, the crude
+form of a control the server offered properly, so a minority of 27B blocks ran
+in a different mode from the rest. `--reasoning-budget` would have capped those
+blocks by construction.
+
+Some unknown share of the 27B's deficit is therefore an inference-budget
+artefact rather than a capability gap.
+
+Note what a redo can and cannot fix. It cannot equalise the effort *label*: the
+local ceiling is `medium` and the frontier arms ran at `high`, so no setting
+makes those two the same word. It can hold a **token budget** constant across
+candidates, which is the better-posed comparison in any case — and which this
+campaign, having left the control untouched, did not attempt.
 
 ## The 27B's advantage is probably understated
 

@@ -39,9 +39,21 @@ subject and nothing here transfers to one.
 | | Frontier arms and judges | Local arm |
 |---|---|---|
 | Model | Claude Sonnet 5, Opus 5, Fable 5 | `qwen3.8-27b`, 27.3 B params, Q4_K_M |
-| Reasoning effort | **high** | no such control exists |
+| Reasoning effort | **high** | **left at the template default** — see below |
 | Served by | Claude Code, Max subscription | llama.cpp, 131 k context, ≈31 tok/s |
 | Hardware | not observable | RTX A4000 16 GB + RTX 3060 12 GB, Threadripper PRO 3945WX |
+
+**Effort was not equalised, and the failure was avoidable.** The local model does
+have an effort control — its chat template accepts `reasoning_effort` of `none`,
+`low` or `medium`, and `enable_thinking: false` suppresses thinking outright —
+but the campaign set none of them: the service unit carries no reasoning flag and
+the runners send only `messages`, `max_tokens` and `cache_prompt`. Every local arm
+therefore ran at the template's own default, thinking on and bounded only by a
+24 000-token ceiling. Its top setting is `medium`; there is no `high` to place
+against the frontier arms' `high`. So the comparison is frontier-at-high against
+local-at-default, and part of the local model's deficit is an inference-budget
+artefact rather than a capability gap. [LIMITATIONS.md](LIMITATIONS.md) states how
+far that goes.
 
 Costs ran two to four times a cold draw in tokens and in wall-clock time, on
 every arm and every model — 6 100–7 200 s locally against 850–1 250 s for the
