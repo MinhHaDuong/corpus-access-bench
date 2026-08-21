@@ -8,7 +8,7 @@ against a pre-registered decision rule.
 
 The answer, in one line: **the stronger the model, the less access matters.**
 
-| Access to the corpus | Sonnet | Opus | Fable | Qwen 3 27B (local) |
+| Access to the corpus | Claude Sonnet 5 | Claude Opus 5 | Claude Fable 5 | Qwen 3.8 27B (local) |
 |---|---|---|---|---|
 | **C** — cold, no tools at all | 45.3 | 56.0 | **58.5** | 24.7 |
 | **D** — open web only | 45.5 | 57.4 | 56.8 | 30.0 |
@@ -22,7 +22,7 @@ separate grading round; see [RESULTS.md](RESULTS.md) for why rounds are not
 directly comparable and how an anchor copy quantifies the drift.
 
 **Conditions.** Frontier arms and judges ran through Claude Code on a Max
-subscription at reasoning effort **high**. The local model was **Qwen 3 27B,
+subscription at reasoning effort **high**. The local model was **Qwen 3.8 27B,
 Q4_K_M, llama.cpp, 131 k context, ≈31 tok/s** on one desk-side machine — an
 **RTX A4000 (16 GB) plus an RTX 3060 (12 GB)**, 28 GB of VRAM between them,
 Threadripper PRO 3945WX, 125 GB RAM — and has no effort control at all. Effort
@@ -74,6 +74,54 @@ three commitments, all pre-registered before any run:
   doctoral material, pre-registered as non-discriminating. Those 20 are in this
   repository — statements, answer key, every arm's answers, every judge's
   per-question line and justification. Audit the grading yourself.
+
+---
+
+## Conclusions
+
+Two of these are equipment decisions for one researcher's daily work. The third
+is what the study can and cannot settle. The fourth is the part that transfers.
+
+**1. A local Qwen 3.8 27B with a knowledge base does not replace Claude Opus 5
+for daily research work.** Fully equipped, the 27B scores 44.9; Opus 5 with no
+tools at all scores 56.0. The corpus closes about half the gap and leaves eleven
+points, six times the resolution floor.
+
+The slowness is worth stating precisely, because the precise version is less
+damning. It lives in the tool loop, not in inference: cold, the local model took
+859 s against 432 s, a factor of two. With the corpus wired, 6 100–7 200 s
+against 905–1 250 s. What is slow is a tool round-trip on two consumer cards, so
+this verdict is dated rather than permanent — it indicts a harness and a
+workstation, not a model class.
+
+**2. Corpus access will not be optimised for the frontier models** — and the
+reason is not that they are proven to know the material. It is that nothing
+measurable justifies the spend, which is two to four times the tokens and the
+time on every run. That decision holds under either reading of the flat frontier
+columns, which is what makes it a decision rather than a guess. What would
+reopen it: an exam the frontier models do not saturate.
+
+**3. What this exam cannot settle: whether the strong models really know as much
+as a scholarly reference work.** Marks near 58/60 with 1.9-point spreads are
+equally consistent with "they know it" and with "these questions are too easy to
+reveal what they do not know". The instrument argues for the second reading
+against our own expectation: the frozen prediction that a cold model would score
+at most 10/20 on the obscure stratum failed at 14.7, and Opus 5's four arms fit
+inside 1.9 points on 60. A saturated instrument does not demonstrate the
+examinee's knowledge; it demonstrates its own ceiling. Settling this needs harder
+questions, which campaign 4 did not know how to write.
+
+**4. Keep the corpus wired for the strong models anyway — for provenance, not
+for the mark.** A mark measures whether an answer is right. It does not measure
+whether a reader can check it. The corpus-armed copies cited exact folios that
+the judges verified, and flagged unprompted which of their answers rested on an
+opened page rather than on memory. A model that knows the material but cannot
+route you to the page leaves the whole verification to you.
+
+**And the one result that is not about anyone's equipment:** the shape of a
+corpus beats the catalogue of a corpus. A directory of one file per entry beat a
+hand-built index of the same material by 4.1 points, and answers a question no
+search can pose — whether an entry exists at all.
 
 ---
 

@@ -1,6 +1,6 @@
 # LinkedIn article — ready to paste
 
-**Title:** Corpus access buys a local 27B twenty points. It buys a frontier model nothing.
+**Title:** Qwen 3.8 27B gained twenty points from my reference library. Claude Opus 5 gained nothing.
 
 ---
 
@@ -19,7 +19,7 @@ arm could be scored for fidelity to its own source.
 
 Here is what came back.
 
-| Access | Sonnet | Opus | Fable | Qwen 3 27B, local |
+| Access | Claude Sonnet 5 | Claude Opus 5 | Claude Fable 5 | Qwen 3.8 27B, local |
 |---|---|---|---|---|
 | Cold, no tools | 45.3 | 56.0 | **58.5** | 24.7 |
 | Web only | 45.5 | 57.4 | 56.8 | 30.0 |
@@ -40,7 +40,7 @@ carried through three grading rounds scored 56.0, 57.8 and 55.3. So read the
 
 **Conditions, because they are part of the result.** The frontier models ran
 through Claude Code on a Max subscription at reasoning effort *high*. The local
-model was Qwen 3 27B at Q4_K_M under llama.cpp, 131k context, sustaining about
+model was Qwen 3.8 27B at Q4_K_M under llama.cpp, 131k context, sustaining about
 31 tokens/s across an RTX A4000 and an RTX 3060 — 28 GB of VRAM between two
 consumer-grade cards, on a Threadripper workstation. A frontier model at low
 effort is a different subject and none of this transfers to one.
@@ -83,6 +83,44 @@ Predictions were frozen before each run, and two were falsified. I had predicted
 a cold model would score at most 10 out of 20 on the obscure stratum; it scored
 14.7. I had predicted the index would win. Both are written up as failures,
 because that is what pre-registration is for.
+
+**So what did I actually decide?**
+
+*I am not swapping Claude Opus 5 for a local Qwen 3.8 27B plus a knowledge
+base.* Fully equipped, the 27B scores 44.9. Opus 5 with no tools at all scores
+56.0. The corpus closes about half that gap and leaves eleven points.
+
+The slowness deserves a more precise verdict than "too slow", because the
+precise one is less damning: it lives in the tool loop, not in inference. Cold,
+the local model took 859 s against 432 s — a factor of two, perfectly usable.
+Wire the corpus in and it is 6 100–7 200 s against 905–1 250 s. What is slow is
+a tool round-trip on two consumer GPUs. That indicts my workstation and my
+harness, not the model class, and it will age.
+
+*I am not going to optimise corpus access for the strong models.* Not because
+they are proven to know everything — see below — but because nothing measurable
+justifies spending two to four times the tokens and the time on every single
+run. That decision is the same whichever explanation is true, which is what
+makes it a decision rather than a guess.
+
+**And here is what I cannot tell you**, though I would like to. Whether Opus 5
+and Fable 5 genuinely know as much as a scholarly reference work. Marks near
+58/60 with 1.9-point spreads fit "they know it" and "my questions are too easy"
+equally well, and my own evidence leans toward the second: I had predicted a
+cold model would score at most 10/20 on the obscure stratum, and it scored 14.7.
+An instrument that saturates does not prove the examinee knows the material. It
+proves the instrument has a ceiling. Finding out needs harder questions than
+I knew how to write.
+
+One consequence of that uncertainty is practical, and it cuts against my own
+second decision. **I will keep the corpus wired for the strong models anyway —
+for provenance rather than for the score.** A mark says whether an answer is
+right. It says nothing about whether a reader can check it. The corpus-armed
+copies gave exact page references that the judges verified, and flagged
+unprompted which of their answers rested on a page they had opened rather than
+on memory. A model that knows the material but cannot route you to the page
+leaves the whole verification to you, and in scholarly work that is most of the
+work.
 
 **What I am not claiming.** One draw per arm, so no confidence interval — an
 order-of-magnitude result, twenty points against two, not a ranking. The local

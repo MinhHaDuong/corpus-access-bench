@@ -1,6 +1,6 @@
 # Reddit post — r/LocalLLaMA
 
-**Title:** I ran the same 60-question exam on a local Qwen3-27B and three frontier models under 5 corpus-access setups. The local model gained 20 points; the frontier models gained nothing. A plain file-per-entry directory beat both a hand-built index and grep-over-PDFs.
+**Title:** Qwen 3.8 27B gains +20/60 from corpus access. Claude Opus 5 and Fable 5 gain nothing. And a plain one-file-per-entry directory beat both my hand-built index and grep-over-PDFs.
 
 **Flair:** Resources (or Discussion — check current sub rules before posting)
 
@@ -24,7 +24,7 @@ answer key built from a *second*, independent reference work.
 
 ## Results (mean of 3 judges, /60)
 
-| Access | Sonnet | Opus | Fable | **Qwen3-27B local** |
+| Access | Claude Sonnet 5 | Claude Opus 5 | Claude Fable 5 | **Qwen 3.8 27B local** |
 |---|---|---|---|---|
 | C cold | 45.3 | 56.0 | **58.5** | 24.7 |
 | D web | 45.5 | 57.4 | 56.8 | 30.0 |
@@ -61,7 +61,7 @@ files well.
 
 ## Hardware / conditions
 
-- **Local:** Qwen3-27B **Q4_K_M**, llama.cpp, n_ctx 131k, systemd unit.
+- **Local:** Qwen 3.8 27B **Q4_K_M**, llama.cpp, n_ctx 131k, systemd unit.
   **RTX A4000 16GB + RTX 3060 12GB** (28GB VRAM total), Threadripper PRO
   3945WX 12-core, 125GB RAM. **~31 tok/s** sustained (30.4 measured end-to-end
   on the tool-free arm).
@@ -104,6 +104,35 @@ Predictions were frozen before each run and **two were falsified**, including
 - One domain, one language (French), one rubric — and the rubric pays 0.50 for
   an honest "I don't know" vs 0.00 for a confident wrong answer. Flip that and
   the ranking moves.
+
+## What I concluded for my own setup
+
+**I'm not replacing Claude Opus 5 with local Qwen 3.8 27B + a knowledge base for
+daily work.** Fully equipped the 27B is at 44.9; Opus 5 *with no tools at all* is
+at 56.0. The corpus closes about half the gap and leaves 11 points.
+
+But "too slow" deserves a sharper verdict: **the slowness is in the tool loop,
+not inference.** Cold it's 859 s vs 432 s — 2×, totally usable. With the corpus
+wired: 6 100–7 200 s vs 905–1 250 s. That's tool round-trips on 2 consumer GPUs,
+which indicts my hardware and my agent loop, not the model. It'll age well.
+
+**I'm not going to optimise corpus access for the frontier models** — but not
+because they're proven to know everything. Because nothing measurable justifies
+2–4× tokens and time on every run. Same decision either way.
+
+**What I genuinely can't tell you:** whether Opus 5 / Fable 5 actually know as
+much as the reference work. 58/60 with 1.9-point spreads fits both "they know
+it" and "my questions are too easy", and my own falsified prediction leans
+toward the second (I predicted ≤10/20 cold on the obscure stratum; got 14.7).
+A saturated benchmark proves its own ceiling, not the model's knowledge. Needs
+harder questions than I knew how to write — if anyone wants to write them, the
+design is public.
+
+**One thing I'll keep the corpus wired for anyway: provenance.** The score
+measures whether an answer is right; it says nothing about whether you can check
+it. Corpus-armed copies gave exact page refs the judges verified, and flagged
+unprompted which answers came from an opened page vs. memory. For actual
+research work that's most of the value, and it never shows up in the mark.
 
 ## Repo
 
