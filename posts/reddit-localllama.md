@@ -134,7 +134,7 @@ it. Corpus-armed copies gave exact page refs the judges verified, and flagged
 unprompted which answers came from an opened page vs. memory. For actual
 research work that's most of the value, and it never shows up in the mark.
 
-## Repo
+## Repo — the README is the write-up
 
 Protocol, harness (runner, blinding, aggregation), full cost tables, and **20 of
 the 60 questions published in full** — statements, answer key, every arm's

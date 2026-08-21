@@ -1,6 +1,11 @@
-# LinkedIn article — as written
+# LinkedIn article
 
 **Title:** Qwen 3.8 27B gained twenty points from my reference library. Claude Opus 5 gained nothing.
+
+> The repository page is the canonical text — this is that article, flattened for
+> a venue that renders neither Markdown tables nor a monospace font. Edit
+> `README.md` first and carry changes here, not the other way round. The tables
+> below use dot leaders on purpose: do not re-pipe them on the way in.
 
 ---
 I ran an exam in August.
@@ -58,8 +63,10 @@ I will keep the corpus wired for the strong models anyway — for provenance cit
 
 What I am not claiming. One draw per arm, so no confidence interval — an order-of-magnitude result, twenty points against two, not a ranking. The local model has no effort control and burned part of its budget on runaway reasoning, so some of its cold deficit is an inference-budget artefact rather than a capability gap. One domain, one language, one rubric — and that rubric rewards honest abstention over confident error, a value judgement about research work that would reorder the arms if reversed.
 
-The protocol, the harness, the cost tables and twenty of the sixty questions —with every model's answers and every judge's line — are public. The other forty stay sealed, because the thing being measured is what a model knows without the corpus, and that quantity dies the day the questions enter a training set.
+The other forty questions stay sealed, because the thing being measured is what a model knows without the corpus, and that quantity dies the day the questions enter a training set.
 
+Everything — protocol, harness, cost tables, the twenty published questions with
+every model's answers and every judge's line — is at
 👉 github.com/MinhHaDuong/corpus-access-bench
 
 Next: if granularity is the lever, how far does it go? Structured re-extraction with headings and links, resolved identifiers, generated indexes and access instructions inside the corpus directory. There should be points left on the table for the small models.

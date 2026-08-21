@@ -45,7 +45,7 @@ Protocol, harness, cost tables and a third of the questions are public —
 including every model's answers and every judge's line, so you can audit the
 grading rather than take my word for it.
 
-Full write-up in the article below. Code and data:
+Full write-up, code, costs and data — the repository page is the paper:
 github.com/MinhHaDuong/corpus-access-bench
 
 #LLM #RAG #LocalLLM #OpenScience
@@ -78,7 +78,7 @@ it at the right granularity.
 Predictions frozen before each run; two falsified, and reported as falsified.
 Protocol, harness and a third of the questions public.
 
-Article below. Repo: github.com/MinhHaDuong/corpus-access-bench
+The repository page is the write-up: github.com/MinhHaDuong/corpus-access-bench
 
 #LLM #RAG #LocalLLM #OpenScience
 
