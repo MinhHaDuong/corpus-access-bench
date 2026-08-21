@@ -22,3 +22,6 @@ corpus/
 __pycache__/
 .venv/
 *.pyc
+
+# Worktrees of other sessions live here; never tracked.
+.claude/worktrees/
