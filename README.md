@@ -39,21 +39,29 @@ subject and nothing here transfers to one.
 | | Frontier arms and judges | Local arm |
 |---|---|---|
 | Model | Claude Sonnet 5, Opus 5, Fable 5 | `qwen3.8-27b`, 27.3 B params, Q4_K_M |
-| Reasoning effort | **high** | **left at the template default** — see below |
+| Reasoning effort | **high** | **`xhigh`** — the template maximum, and its default |
 | Served by | Claude Code, Max subscription | llama.cpp, 131 k context, ≈31 tok/s |
 | Hardware | not observable | RTX A4000 16 GB + RTX 3060 12 GB, Threadripper PRO 3945WX |
 
-**Effort was not equalised, and the failure was avoidable.** The local model does
-have an effort control — its chat template accepts `reasoning_effort` of `none`,
-`low` or `medium`, and `enable_thinking: false` suppresses thinking outright —
-but the campaign set none of them: the service unit carries no reasoning flag and
-the runners send only `messages`, `max_tokens` and `cache_prompt`. Every local arm
-therefore ran at the template's own default, thinking on and bounded only by a
-24 000-token ceiling. Its top setting is `medium`; there is no `high` to place
-against the frontier arms' `high`. So the comparison is frontier-at-high against
-local-at-default, and part of the local model's deficit is an inference-budget
-artefact rather than a capability gap. [LIMITATIONS.md](LIMITATIONS.md) states how
-far that goes.
+**Effort, and what the local control actually is.** The campaign passed no
+reasoning parameter to the local model — and that turns out to mean it ran at
+**`xhigh`, the template's maximum**, whose rendered prompt is byte-identical to
+passing `xhigh` explicitly. The local arms were not handicapped; they were told,
+in the system message, to "think carefully through the task, validate key
+assumptions, consider plausible alternatives".
+
+The control is three prompt strings, not a budget. `xhigh` encourages, `low`
+discourages, and `medium` injects *nothing at all* — so the scale is
+encourage / silence / discourage, with no measurable midpoint. Nothing enforces
+any of it, which is why some blocks spent their entire 24 000-token ceiling
+thinking without emitting an answer. The only hard controls sit outside the
+template: `enable_thinking: false` (llama.cpp pre-closes the `<think>` block, so
+the model cannot think) and `--reasoning-budget N`. There is no `high` because
+the top level is named `xhigh`.
+
+What remains a genuine inconsistency: the blocks repaired with `/no_think` ran
+with thinking structurally disabled — the bottom of the scale — while every
+other block ran at the top. [LIMITATIONS.md](LIMITATIONS.md) sizes it.
 
 Costs ran two to four times a cold draw in tokens and in wall-clock time, on
 every arm and every model — 6 100–7 200 s locally against 850–1 250 s for the

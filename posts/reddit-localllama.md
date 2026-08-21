@@ -94,18 +94,23 @@ Predictions were frozen before each run and **two were falsified**, including
 ## Caveats I'd want if I were reading this
 
 - **One draw per arm.** No confidence interval. Order-of-magnitude result only.
-- **Effort isn't held constant, and that one's on me.** I first wrote that the
-  local model had no effort knob. It does: the template takes
-  `reasoning_effort` of `none` / `low` / `medium` (raises on `high`),
-  `chat_template_kwargs: {"enable_thinking": false}` kills thinking outright,
-  and llama-server has `--reasoning-effort` / `--reasoning-budget`. I set none
-  of them, so the local arms ran at template default against frontier arms at
-  `high`. Some blocks then burned the whole 24k on reasoning with no output and
-  I patched it with a `/no_think` retry — the crude version of a flag that was
-  sitting right there. `--reasoning-budget` would have capped it properly.
-  Some of the cold-arm deficit is an inference-budget artefact. Note the local
-  ceiling is `medium`, so the labels can never match; a redo should equalise a
-  **token budget** instead.
+- **Effort — I got this wrong twice before checking, so here it is measured.**
+  Passing no `reasoning_effort` renders a prompt byte-identical to `xhigh`,
+  which is the template's **maximum**. The local arms were not handicapped:
+  they ran under an explicit "think carefully, validate key assumptions"
+  system instruction, and the cold arm spent ~18k of 26k tokens reasoning
+  before scoring 24.7. The levels are `xhigh` / `medium` / `low` (no `high` —
+  that's why it raises), implemented as three system-prompt strings, and
+  `medium` is *the empty string*. So it's encourage / nothing / discourage,
+  not a budget, and nothing enforces it. The only hard controls are
+  `chat_template_kwargs: {"enable_thinking": false}` — llama.cpp pre-closes
+  `<think></think>` so it structurally can't think — and `--reasoning-budget N`.
+- **The real inconsistency in my local column:** blocks that burned the whole
+  24k thinking with no output got repaired with a `/no_think` retry, which puts
+  them at the *bottom* of the scale while every other block sat at the top.
+  `--reasoning-budget` would have fixed it properly. Frontier arms ran at
+  `high`; the two scales share no level name, so a redo should equalise a
+  **token budget**, not a label.
 - **Q4_K_M**, not a full-precision run.
 - The local model's B′ advantage is likely **understated** — on 2 of 6 blocks it
   reported consulting no file and answered from memory.

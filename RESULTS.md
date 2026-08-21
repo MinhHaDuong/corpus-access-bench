@@ -8,7 +8,7 @@ independent judges from a model family different from the candidate's.
 | | Frontier arms and judges | Local arm |
 |---|---|---|
 | Model | Claude Sonnet 5, Claude Opus 5, Claude Fable 5 | `qwen3.8-27b`, 27.3 B parameters, Q4_K_M (17.8 GB) |
-| Reasoning effort | **high**, inherited by sub-agents | template default (control existed, unused) |
+| Reasoning effort | **high**, inherited by sub-agents | **`xhigh`** — the template maximum, reached by passing nothing |
 | Server | Claude Code on a Max subscription | llama.cpp, systemd unit, 131 k context served of 262 k trained |
 | Hardware | not ours, not observable | RTX A4000 16 GB + RTX 3060 12 GB (28 GB VRAM), Threadripper PRO 3945WX 12-core, 125 GB RAM |
 | Generation speed | not measurable through the harness | ≈31 tok/s sustained; 30.4 measured end to end on the tool-free arm |
@@ -31,28 +31,28 @@ Three things bound what this instrument can actually see:
 - **Inter-judge spread** of 0.06 to 0.17 mark-units per question, which
   accumulates over 60 questions.
 
-And one confound rather than a bound. **Effort is not held constant across the
-comparison, and an earlier version of this section wrongly said it could not
-be.** It could have been, partly. The local model's chat template accepts a
-`reasoning_effort` of `none`, `low` or `medium` — 2, 22 and 29 completion tokens
-on a trivial prompt — and `chat_template_kwargs: {"enable_thinking": false}`
-suppresses thinking outright; `llama-server` exposes `--reasoning`,
-`--reasoning-effort` and `--reasoning-budget` besides. The campaign set none of
-them: the service unit carries no reasoning flag, and the runners send
-`messages`, `max_tokens` and `cache_prompt` and nothing else. Every local arm
-therefore ran at the template's own default, and arm C spent roughly 18 k of its
-26 k generated tokens on reasoning. Worse, some blocks exhausted the whole 24 k budget in reasoning
-without emitting an answer, and the fix was a retry with `/no_think` in the
-prompt — the crude in-prompt form of a control the server offered properly all
-along, so a minority of the 27B blocks ran in a different mode from the rest.
-`--reasoning-budget` would have capped the runaway blocks outright.
+And one confound, smaller than two earlier versions of this section claimed.
+**Effort was not equalised, but the local model was not handicapped either.**
+Passing no reasoning parameter renders a prompt byte-identical to
+`reasoning_effort: xhigh` — the template's maximum — so every local arm ran
+under an explicit instruction to think carefully, validate key assumptions and
+consider alternatives. Arm C spent roughly 18 k of its 26 k generated tokens on
+reasoning and still scored 24.7.
 
-Two consequences. Part of the 27B's deficit is an inference-budget artefact and
-not a capability difference, which cuts against the headline's precision but not
-its direction — the gap to explain away is twenty points. And even a careful
-redo cannot equalise the *label*: the local ceiling is `medium`, the frontier
-arms ran at `high`. What a redo can equalise is a token budget, which is the
-better-posed comparison anyway.
+The control is three prompt strings rather than a budget: `xhigh` encourages,
+`low` discourages, `medium` injects nothing at all. Nothing enforces any of it,
+which is why some blocks exhausted the whole 24 k ceiling thinking without
+emitting an answer. Those blocks were repaired with `/no_think` in the prompt,
+which puts them at the *bottom* of the scale — thinking structurally disabled —
+while every other block sat at the top. That inconsistency is real and is the
+part worth fixing; `--reasoning-budget N`, which injects the end-of-thinking tag
+after N tokens, is the control that would have prevented it.
+
+So the honest statement is narrower than "the deficit is an inference-budget
+artefact": the local model was given its maximum reasoning setting and the gap
+is twenty points. What a redo should equalise is a **token budget**, which is
+the better-posed comparison and which no effort *label* can deliver — the two
+scales share no level name.
 
 Taken together: **a difference under about 2 points is not a difference.** Read
 every comparison inside a single round, and read the small ones as ties. This is

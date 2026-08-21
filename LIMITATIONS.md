@@ -14,36 +14,40 @@ assumed: **differences below about 2 points are not differences.** Applied
 honestly, this dissolves most of the within-model rankings. It leaves the
 between-model gradient standing, because that gap is ten times the floor.
 
-## Effort is a confound, it is not small, and it was avoidable
+## Effort: what the local control is, and what it is not
 
-The frontier arms and judges ran at reasoning effort *high*. The local arms ran
-at whatever their chat template does by default.
+The frontier arms and judges ran at reasoning effort *high*. The local arms
+passed no reasoning parameter, which renders a prompt byte-identical to
+`reasoning_effort: xhigh` — **the template's maximum**. They were not
+handicapped. They were instructed to "think carefully through the task, validate
+key assumptions, consider plausible alternatives", and arm C spent roughly 18 k
+of its 26 k generated tokens doing so before scoring 24.7.
 
-An earlier version of this file said the local model had no equivalent control.
-That was wrong, and checking took ten minutes. The template accepts a
-`reasoning_effort` of `none`, `low` or `medium` — measured on a trivial prompt:
-2, 22 and 29 completion tokens — and `chat_template_kwargs:
-{"enable_thinking": false}` drops a 92-token answer to 6 with no reasoning at
-all. `llama-server` exposes `--reasoning`, `--reasoning-effort` and
-`--reasoning-budget` besides. The campaign set none of them: the service unit
-carries no reasoning flag, and the runners send `messages`, `max_tokens` and
-`cache_prompt` and nothing else.
+Two earlier versions of this file were wrong about this, in opposite directions:
+the first said no control existed, the second said the model ran at some
+unspecified default. Both were settled in minutes by rendering the template.
 
-Two things follow. Arm C spent roughly 18 k of 26 k generated tokens on
-reasoning, and some blocks consumed the entire 24 k ceiling thinking without
-emitting an answer — repaired by putting `/no_think` in the prompt, the crude
-form of a control the server offered properly, so a minority of 27B blocks ran
-in a different mode from the rest. `--reasoning-budget` would have capped those
-blocks by construction.
+**The control is three prompt strings, not a budget.** `xhigh` encourages, `low`
+discourages, and `medium` injects nothing at all — the scale is
+encourage / silence / discourage, with no midpoint that means anything. Nothing
+enforces any level. The only mechanisms that bound anything sit outside the
+template: `enable_thinking: false`, where llama.cpp pre-closes the `<think>`
+block so the model structurally cannot think, and `--reasoning-budget N`, which
+injects the end-of-thinking tag after N tokens. There is no `high`; the top
+level is named `xhigh`, which is why a request for `high` raises.
 
-Some unknown share of the 27B's deficit is therefore an inference-budget
-artefact rather than a capability gap.
+**What is still wrong with the campaign.** Some blocks exhausted the entire
+24 000-token ceiling in reasoning and emitted no answer. The repair put
+`/no_think` in the prompt, which places those blocks at the *bottom* of the
+scale while every other block sat at the top. A minority of the 27B's answers
+were therefore produced with thinking disabled and the rest with thinking
+maximally encouraged. That is a real inconsistency in the local column, and
+`--reasoning-budget` is the control that would have removed it.
 
-Note what a redo can and cannot fix. It cannot equalise the effort *label*: the
-local ceiling is `medium` and the frontier arms ran at `high`, so no setting
-makes those two the same word. It can hold a **token budget** constant across
-candidates, which is the better-posed comparison in any case — and which this
-campaign, having left the control untouched, did not attempt.
+**What a redo can and cannot equalise.** Not the effort *label*: the two scales
+share no level name, so no setting makes "high" and "xhigh" the same condition.
+A **token budget** held constant across candidates is the better-posed
+comparison, and this campaign did not attempt it.
 
 ## The 27B's advantage is probably understated
 
