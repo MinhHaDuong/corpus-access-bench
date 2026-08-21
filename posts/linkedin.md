@@ -3,7 +3,7 @@
 **Title:** Qwen 3.8 27B gained twenty points from my reference library. Claude Opus 5 gained nothing.
 
 ---
-I ran an exam in  August.
+I ran an exam in August.
 
 It compared the open-book vs. closed-book performance of AI models.
 
@@ -11,29 +11,36 @@ Sixty questions in the history of economic thought, doctoral level. Four languag
 
 Every copy was graded blind, out of 60, by three judges from a different model family, working from an answer key built from a second reference work so that no arm could be scored for fidelity to its own source. Here is what came back.
 
-| Access | Claude Sonnet 5 | Claude Opus 5 | Claude Fable 5 | Qwen 3.8 27B, local |
+Marks out of 60. Reading order in every line: Claude Sonnet 5 · Claude Opus 5 · Claude Fable 5 · Qwen 3.8 27B running locally.
 
-|---|---|---|---|---|
+Cold, no tools ......... 45.3 · 56.0 · 58.5 · 24.7
+Open web only .......... 45.5 · 57.4 · 56.8 · 30.0
+PDFs + text search ..... 49.8 · 56.6 · 58.5 · 37.6
+Hand-built index ....... 49.4 · 57.9 · 57.1 · 39.8
+One file per entry ..... 42.6 · 57.9 · 58.5 · 44.9
 
-| Cold, no tools        | 45.3 | 56.0 | 58.5 | 24.7 |
-
-| Web only                 | 45.5 | 57.4 | 56.8 | 30.0 |
-
-| PDFs + text search | 49.8 | 56.6 | 58.5 | 37.6 |
-
-| Hand-built index    | 49.4 | 57.9 | 57.1 | 39.8 |
-
-| One file per entry  | 42.6 | 57.9 | 58.5 | 44.9 |
-
-| Best minus worst |  4.5 |  1.9 |  1.7 | 20.3 |
+Best minus worst ........ 4.5 ·  1.9 ·  1.7 · 20.3
 
 The instrument resolves about two points, which I know because the same copy carried through three grading rounds scored 56.0, 57.8 and 55.3. So read the 1.9 and the 1.7 as zero, and read the 20.3 as the finding:
 
 A 27-billion-parameter model running on a machine under my desk gains twenty points from corpus access. That is more than the whole distance separating it from a frontier model in the cold column. The frontier models gain nothing I can measure: Fable returns 58.5 cold, 58.5 on the PDFs, and 58.5 on the file directory. Three access layers, one mark.
 
-Experimental conditions (an economist can be a scientist too!) The frontier models ran through Claude Code on a Max subscription at reasoning effort high. The local model was Qwen 3.8 27B at Q4_K_M under llama.cpp, 131k context, sustaining about 31 tokens/s across an RTX A4000 and an RTX 3060 — 28 GB of VRAM between two consumer-grade cards, on a Threadripper workstation. A frontier model at low effort is a different animal. Grading included a salted sixth copy, injected with known errors to test the judges themselves (they were reliable). The 60 questions were organized in three difficulty stratum, from graduate school level to obscure HLA-inspired questions.
+Experimental conditions (an economist can be a scientist too!) The frontier models ran through Claude Code on a Max subscription at reasoning effort high. The local model was Qwen 3.8 27B at Q4_K_M under llama.cpp, 131k context, sustaining about 31 tokens/s across an RTX A4000 and an RTX 3060 — 28 GB of VRAM between two consumer-grade cards, on a Threadripper workstation. A frontier model at low effort is a different animal. Grading included a salted sixth copy, injected with known errors to test the judges themselves (they were reliable). The 60 questions were organized in three difficulty strata, from graduate school level to obscure questions in the spirit of Humanity's Last Exam.
 
-What this means if you are deciding where to spend engineering effort. Corpus plumbing is a small-model lever. On a frontier model it is dead weight: tooled access cost two to four times a cold draw in tokens and in time, every run (tables follow). For the local machine the price is hours. The corpus arms took 6 100 to 7 200 seconds against 850 to 1 250 for the frontier arms — five to eight times longer for the same sixty questions. Two hours of a workstation already paid for (I have spare electricity in the afternoon from my rooftop PV panels), against a subscription. That is the trade, stated plainly.
+What this means if you are deciding where to spend engineering effort. Corpus plumbing is a small-model lever. On a frontier model it is dead weight: tooled access cost two to four times a cold draw in tokens and in time, every run (tables follow).
+
+Tokens generated and wall-clock seconds, same reading order.
+
+Cold, no tools ......... 79k/379s · 74k/432s · 74k/652s · 26k/859s
+Open web only .......... 140k/509s · 127k/1143s · 84k/888s · 62k/2361s
+PDFs + text search ..... 158k/701s · 241k/1246s · 122k/854s · 166k/6472s
+Hand-built index ....... 253k/985s · 247k/905s · 227k/981s · 145k/7207s
+One file per entry ..... 309k/911s · 540k/944s · 277k/1094s · 139k/6109s
+
+Tokens generated / wall-clock seconds, for the same sixty questions. The two
+time columns are not the same quantity: the local seconds are inference on
+hardware I can see, the frontier seconds include queueing and agent-harness
+overhead on machines I cannot. What they honestly measure is what I waited for. For the local machine the price is hours. The corpus arms took 6 100 to 7 200 seconds against 850 to 1 250 for the frontier arms — five to eight times longer for the same sixty questions. Two hours of a workstation already paid for (I have spare electricity in the afternoon from my rooftop PV panels), against a subscription. That is the trade, stated plainly.
 
 The result I did not expect. The hand-built index lost to a directory of files. Cutting the corpus into one file per entry, so the filename is the index, beat my carefully constructed table of contents by 4.1 points for the local model and beat text search over the PDFs by 6.1. What pays is not cataloguing a corpus. It is cutting it at the right granularity, so the structure is the index and an absence is a fact about ls.
 

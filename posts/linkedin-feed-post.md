@@ -86,12 +86,12 @@ Article below. Repo: github.com/MinhHaDuong/corpus-access-bench
 
 ## Posting notes
 
-- **The table will not survive.** LinkedIn's article editor does not render
-  Markdown tables; pasted pipes come out as run-on text. Either screenshot the
-  table from the repo's README and insert it as an image with the numbers in the
-  alt text, or flatten each row to `Cold, no tools — 45.3 / 56.0 / 58.5 / 24.7`
-  with a header line naming the four models. The feed post above sidesteps this
-  by listing only the four gains.
+- **The tables are already flattened, deliberately.** LinkedIn renders neither
+  Markdown pipes nor a monospace font, so a grid cannot hold its columns. The
+  article uses dot leaders and a stated reading order instead — a form that
+  survives a proportional face, because each line carries its own label. Do not
+  re-pipe them on the way in. The feed post sidesteps the question by listing
+  only the four gains.
 - **A comment beats a second link.** LinkedIn suppresses reach on posts with
   outbound links. Common workaround: put the repo URL in the first comment and
   leave the post itself linking only to the article.
