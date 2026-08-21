@@ -161,6 +161,21 @@ questions of your own. Everything else is here: arm prompts word for word, the
 grading rubric, a runner for a local llama.cpp model, blinding, aggregation, and
 the cost accounting.
 
+**One thing is described rather than shipped, and the reason is not tidiness.**
+The scripts that cut the reference work into one file per entry are not here and
+will not be. They are not generic text tools: they consume a structural map of
+that particular work — entry boundaries, authors, cross-references, per-volume
+page offsets — and their whole purpose is to turn its PDFs into a derivative.
+Shipping them would be shipping a decoder for a work this project cannot
+redistribute, and it would name the work in the first line of its own docstring.
+So the design is specified here and the implementation stays private.
+
+What that costs you: to reproduce arm B′ you must cut your own corpus at its
+natural unit yourself. What it takes is a map of where entries begin and end,
+and one file written per entry with the printed page numbers preserved as
+markers so a citation can still be read on the page. That is the whole
+mechanism — the finding is about granularity, not about anyone's parser.
+
 ```bash
 python harness/runner_local_arms.py --arm B --questions <sheet> --out <dir>
 python harness/blind.py --answers <dir> --salted <copy> --out <blind> --key <key>
